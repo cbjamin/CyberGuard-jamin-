@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Email Header Analyzer | CyberGuard Jamin</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      padding: 20px;
+      text-align: center;
+    }
+    textarea {
+      width: 80%;
+      height: 200px;
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      border-radius: 6px;
+      padding: 10px;
+      font-family: monospace;
+      resize: vertical;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0f0;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      background: #111;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #0f0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h2>Email Header Analyzer Tool</h2>
+
+  <textarea id="headerInput" placeholder="Paste full email header here..."></textarea>
+  <br />
+  <button onclick="analyzeHeader()">Analyze Header</button>
+
+  <div id="result"></div>
+
+  <script>
+    function analyzeHeader() {
+      const input = document.getElementById('headerInput').value.trim();
+      const resultDiv = document.getElementById('result');
+
+      if (!input) {
+        alert('Please paste the email header.');
+        return;
+      }
+
+      // Simple parsing: extract From, To, Subject, Received, Message-ID lines
+      const lines = input.split('\n');
+      const headers = {};
+
+      lines.forEach(line => {
+        if (/^From:/i.test(line)) headers.From = line;
+        else if (/^To:/i.test(line)) headers.To = line;
+        else if (/^Subject:/i.test(line)) headers.Subject = line;
+        else if (/^Received:/i.test(line)) {
+          if (!headers.Received) headers.Received = [];
+          headers.Received.push(line);
+        } else if (/^Message-ID:/i.test(line)) headers['Message-ID'] = line;
+      });
+
+      let output = 'Email Header Analysis:\n\n';
+      output += headers.From ? headers.From + '\n' : '';
+      output += headers.To ? headers.To + '\n' : '';
+      output += headers.Subject ? headers.Subject + '\n' : '';
+      output += headers['Message-ID'] ? headers['Message-ID'] + '\n' : '';
+      if (headers.Received) {
+        output += '\nReceived Headers:\n';
+        headers.Received.forEach((r, i) => {
+          output += ${i + 1}. ${r}\n;
+        });
+      }
+
+      resultDiv.textContent = output;
+    }
+  </script>
+</body>
+</html>

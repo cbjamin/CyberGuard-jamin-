@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ChatGPT Learn Button | CyberGuard Jamin</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    button {
+      background-color: #0f0;
+      color: #000;
+      border: none;
+      padding: 15px 40px;
+      font-size: 22px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #0f0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #0f0;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="openChatGPT()">Learn with ChatGPT</button>
+
+  <script>
+    function openChatGPT() {
+      window.open('https://chat.openai.com/', '_blank');
+    }
+  </script>
+</body>
+</html>

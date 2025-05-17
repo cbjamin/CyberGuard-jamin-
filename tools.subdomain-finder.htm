@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Subdomain Finder | CyberGuard Jamin</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      padding: 20px;
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 300px;
+    }
+    #result {
+      margin-top: 20px;
+      background: #111;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #0f0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h2>Subdomain Finder Tool</h2>
+
+  <input type="text" id="domainInput" placeholder="Enter domain (e.g. example.com)" />
+  <button onclick="findSubdomains()">Find Subdomains</button>
+
+  <div id="result"></div>
+
+  <script>
+    // Popular subdomains to check
+    const commonSubs = [
+      'www', 'mail', 'ftp', 'webmail', 'smtp', 'blog', 'webdisk', 'cpanel',
+      'autodiscover', 'ns1', 'ns2', 'admin', 'shop', 'dev', 'test', 'portal',
+      'server', 'vpn', 'm', 'api', 'mobile', 'support'
+    ];
+
+    async function checkSubdomain(domain, sub) {
+      const url = http://${sub}.${domain};
+      try {
+        const response = await fetch(url, { mode: 'no-cors' });
+        return true; // If fetch doesn't throw error, assume exists
+      } catch (err) {
+        return false;
+      }
+    }
+
+    async function findSubdomains() {
+      const domain = document.getElementById('domainInput').value.trim();
+      if (!domain) {
+        alert('Please enter a domain.');
+        return;
+      }
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Checking subdomains... Please wait.\n';
+
+      let foundSubs = [];
+
+      for (let sub of commonSubs) {
+        const exists = await checkSubdomain(domain, sub);
+        if (exists) {
+          foundSubs.push(${sub}.${domain});
+        }
+      }
+
+      if (foundSubs.length > 0) {
+        resultDiv.innerHTML = '<strong>Found subdomains:</strong><br>' + foundSubs.join('<br>');
+      } else {
+        resultDiv.textContent = 'No common subdomains found.';
+      }
+    }
+  </script>
+</body>
+</html>

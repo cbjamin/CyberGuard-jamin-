@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tools | CyberGuard Jamin</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .tool {
+      background: #111;
+      border: 1px solid #0f0;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+    .logout {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: red;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logout" onclick="logout()">Logout</div>
+
+  <h2>Welcome to CyberGuard Jamin Tools</h2>
+
+  <div id="toolsList">
+    <div class="tool">1. IP Tracker</div>
+    <div class="tool">2. Admin Panel Finder</div>
+    <div class="tool">3. Port Scanner</div>
+    <div class="tool">4. DNS Lookup</div>
+    <div class="tool">5. Subdomain Finder</div>
+    <div class="tool">6. SSL Checker</div>
+    <div class="tool">7. MAC Vendor Finder</div>
+    <div class="tool">8. Email Header Analyzer</div>
+    <div class="tool">9. User-Agent Viewer</div>
+    <div class="tool">10. Hash Generator</div>
+    <div class="tool">11. Base64 Encoder/Decoder</div>
+    <div class="tool">12. XSS/SQLi Payload Tester</div>
+    <div class="tool">13. ChatGPT Learn Button</div>
+    <div class="tool">14. Bonus Tools</div>
+  </div>
+
+  <script>
+    // Check if user is logged in
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (!loggedInUser) {
+      alert("Unauthorized! Please login first.");
+      window.location.href = "user-login.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "user-login.html";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DNS Lookup | CyberGuard Jamin</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      padding: 20px;
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 300px;
+    }
+    #result {
+      margin-top: 20px;
+      background: #111;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #0f0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h2>DNS Lookup Tool</h2>
+
+  <input type="text" id="domainInput" placeholder="Enter domain (e.g. example.com)" />
+  <button onclick="lookupDNS()">Lookup</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function lookupDNS() {
+      const domain = document.getElementById('domainInput').value.trim();
+      if (!domain) {
+        alert('Please enter a domain.');
+        return;
+      }
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Looking up DNS records...';
+
+      try {
+        // Use a public DNS API (Cloudflare DNS over HTTPS)
+        const response = await fetch(https://cloudflare-dns.com/dns-query?name=${domain}&type=A, {
+          headers: {
+            'accept': 'application/dns-json'
+          }
+        });
+        const data = await response.json();
+
+        if (!data.Answer) {
+          resultDiv.textContent = 'No DNS records found.';
+          return;
+        }
+
+        let output = DNS Records for ${domain}:\n\n;
+        data.Answer.forEach(record => {
+          output += Name: ${record.name}\nType: ${record.type}\nTTL: ${record.TTL}\nData: ${record.data}\n\n;
+        });
+
+        resultDiv.textContent = output;
+
+      } catch (error) {
+        resultDiv.textContent = Error: ${error.message};
+      }
+    }
+  </script>
+</body>
+</html>

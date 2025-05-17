@@ -1,0 +1,13 @@
+// Matrix Code Animation const canvas = document.getElementById("matrixCanvas"); const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight; canvas.width = window.innerWidth;
+
+let letters = Array(256).join("1").split("");
+
+function drawMatrix() { ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = "#0F0"; letters.map(function (y_pos, index) { let text = String.fromCharCode(3e4 + Math.random() * 33); let x_pos = index * 10; ctx.fillText(text, x_pos, y_pos); letters[index] = y_pos > 758 + Math.random() * 1e4 ? 0 : y_pos + 10; }); }
+
+setInterval(drawMatrix, 33);
+
+// Tools Menu Show Based on Login (for demo purpose) const isUserLoggedIn = sessionStorage.getItem("userLoggedIn"); if (isUserLoggedIn === "true") { const toolsMenu = document.getElementById("toolsMenu"); if (toolsMenu) toolsMenu.style.display = "inline-block"; }
+
+// Example to simulate login (you can remove this in actual login flow) // sessionStorage.setItem("userLoggedIn", "true");

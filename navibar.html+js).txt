@@ -1,0 +1,45 @@
+
+<!-- Navbar HTML () -->
+<nav id="navbar" style="background:#000; color:#0f0; padding:10px; font-family: monospace;">
+  <a href="index.html" style="color:#0f0; margin-right:15px;">Home</a>
+  <a href="about.html" style="color:#0f0; margin-right:15px;">About</a>
+  <a href="services.html" style="color:#0f0; margin-right:15px;">Services</a>
+  <a href="blog.html" style="color:#0f0; margin-right:15px;">Blog</a>
+  <a href="contact.html" style="color:#0f0; margin-right:15px;">Contact</a>
+  <a href="admin.html" style="color:#0f0; margin-right:15px;">Admin</a>
+
+  <span id="toolsMenu" style="display:none; margin-right:15px;">
+    <a href="tools.html" style="color:#0f0;">Tools</a>
+  </span>
+
+  <span id="authLinks" style="float:right;">
+    <a href="user-login.html" id="loginLink" style="color:#0f0;">Login</a>
+    <a href="#" id="logoutLink" style="color:#0f0; display:none;">Logout</a>
+  </span>
+</nav>
+
+<script>
+  // Navbar Logic
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  const toolsMenu = document.getElementById("toolsMenu");
+  const loginLink = document.getElementById("loginLink");
+  const logoutLink = document.getElementById("logoutLink");
+
+  if (toolsMenu && loginLink && logoutLink) {
+    if (loggedInUser) {
+      toolsMenu.style.display = "inline";
+      loginLink.style.display = "none";
+      logoutLink.style.display = "inline";
+    } else {
+      toolsMenu.style.display = "none";
+      loginLink.style.display = "inline";
+      logoutLink.style.display = "none";
+    }
+
+    logoutLink.addEventListener("click", function(e) {
+      e.preventDefault();
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "index.html";
+    });
+  }
+</script>

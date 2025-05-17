@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard Jamin</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: monospace;
+            color: #00ffcc;
+            background: url('images/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+        }
+        canvas#matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="matrixCanvas"></canvas>
+<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberGuard Jamin</title>
+  <link rel="stylesheet" href="style.css">
+
+<style>
+body {
+    background: url('images/custom-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #00ffcc;
+    font-family: monospace;
+}
+</style>
+</head>
+<body>
+  <!-- Background Layers -->
+  <div class="background">
+    
+    <div class="matrix"></div>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <h1 class="title glow floating">CyberGuard Jamin</h1>
+    <div class="navbar">
+      <a href="#login">Login</a>
+      <a href="#tools">Tools</a>
+      <a href="#redmode">Red Mode</a>
+      <a href="#footer">Contact</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- Login Section -->
+    <section id="login">
+      <h2>Admin Login</h2>
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required><br>
+        <input type="password" id="password" placeholder="Password" required><br>
+        <button type="submit">Login</button>
+      </form>
+      <p id="loginStatus"></p>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools">
+      <h2>Cyber Tools</h2>
+      <div id="tool-list"></div>
+    </section>
+
+    <!-- Red Mode Section -->
+    <section id="redmode">
+      <h2>Beware of Hackers</h2>
+      <p>Hackers use phishing, malware, social engineering, and other tactics to steal data. Never share personal info blindly. Stay protected with CyberGuard Jamin!</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <p>© 2025 CyberGuard Jamin. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank"><img src="images/fb.png" alt="Facebook"></a>
+      <a href="https://github.com" target="_blank"><img src="images/gh.png" alt="GitHub"></a>
+      <a href="https://linkedin.com" target="_blank"><img src="images/in.png" alt="LinkedIn"></a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+</div>
+<script>
+    var canvas = document.getElementById("matrixCanvas");
+    var ctx = canvas.getContext("2d");
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    var binary = "01";
+    binary = binary.split("");
+    var font_size = 12;
+    var columns = canvas.width / font_size;
+    var drops = [];
+    for (var x = 0; x < columns; x++) drops[x] = 1;
+    function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#0F0";
+        ctx.font = font_size + "px monospace";
+        for (var i = 0; i < drops.length; i++) {
+            var text = binary[Math.floor(Math.random() * binary.length)];
+            ctx.fillText(text, i * font_size, drops[i] * font_size);
+            if (drops[i] * font_size > canvas.height && Math.random() > 0.975)
+                drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(draw, 33);
+</script>
+</body>
+</html>

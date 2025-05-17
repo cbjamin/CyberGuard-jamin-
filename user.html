@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Registration | CyberGuard Jamin</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 30px;
+    }
+    input, button {
+      margin: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+    .hidden { display: none; }
+    #success { color: lime; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h2>User Registration</h2>
+
+  <div id="registerForm">
+    <input type="text" id="name" placeholder="Your Name"><br>
+    <input type="text" id="mobile" placeholder="Mobile Number"><br>
+    <input type="email" id="email" placeholder="Email"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+    <button onclick="generateOTP()">Register</button>
+  </div>
+
+  <div id="otpSection" class="hidden">
+    <p>Enter OTP sent to your mobile:</p>
+    <input type="text" id="otpInput" placeholder="4-digit OTP">
+    <button onclick="verifyOTP()">Verify</button>
+  </div>
+
+  <div id="success"></div>
+
+  <script>
+    let generatedOTP = "";
+
+    function generateOTP() {
+      const name = document.getElementById("name").value.trim();
+      const mobile = document.getElementById("mobile").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!name || !mobile || !email || !password) {
+        alert("All fields are required!");
+        return;
+      }
+
+      generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
+      console.log("Your OTP is:", generatedOTP); // Demo only
+
+      document.getElementById("registerForm").classList.add("hidden");
+      document.getElementById("otpSection").classList.remove("hidden");
+    }
+
+    function verifyOTP() {
+      const entered = document.getElementById("otpInput").value.trim();
+      if (entered === generatedOTP) {
+        // Save user to localStorage
+        const userData = {
+          name: document.getElementById("name").value.trim(),
+          mobile: document.getElementById("mobile").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          password: document.getElementById("password").value.trim()
+        };
+        localStorage.setItem("user_" + userData.email, JSON.stringify(userData));
+        document.getElementById("success").innerText = "Registration Successful!";
+        document.getElementById("otpSection").classList.add("hidden");
+      } else {
+        alert("Invalid OTP!");
+      }
+    }
+  </script>
+</body>
+</html>

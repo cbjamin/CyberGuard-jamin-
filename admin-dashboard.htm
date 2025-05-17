@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login | CyberGuard Jamin</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }.matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.login-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 255, 0, 0.05);
+  border: 1px solid #0f0;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #0f0;
+  width: 300px;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: black;
+  border: 1px solid #0f0;
+  color: #0f0;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  background: #0f0;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 10px #0f0;
+}
+
+.login-container button:hover {
+  background: black;
+  color: #0f0;
+  border: 1px solid #0f0;
+}
+
+  </style>
+</head>
+<body><div class="matrix-bg">
+  <canvas id="matrixCanvas"></canvas>
+</div><div class="login-container">
+  <h2>Admin Login</h2>
+  <input type="text" id="adminUser" placeholder="Username">
+  <input type="password" id="adminPass" placeholder="Password">
+  <button onclick="adminLogin()">Login</button>
+</div><script>
+  // Matrix Background Effect
+  const canvas = document.getElementById("matrixCanvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+
+  const letters = "01";
+  const fontSize = 14;
+  const columns = canvas.width / fontSize;
+
+  const drops = Array.from({ length: columns }, () => 1);
+
+  function drawMatrix() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#0f0";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters[Math.floor(Math.random() * letters.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > canvas.height || Math.random() > 0.95) {
+        drops[i] = 0;
+      }
+
+      drops[i]++;
+    }
+  }
+
+  setInterval(drawMatrix, 33);
+
+  // Demo login function
+  function adminLogin() {
+    const user = document.getElementById("adminUser").value;
+    const pass = document.getElementById("adminPass").value;
+
+    if (user === "admin" && pass === "jamin123") {
+      alert("Login successful!");
+      window.location.href = "admin-dashboard.html"; // Create later
+    } else {
+      alert("Invalid credentials!");
+    }
+  }
+</script></body>
+</html>

@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IP Tracker | CyberGuard Jamin</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      padding: 20px;
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    #result {
+      margin-top: 20px;
+      background: #111;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #0f0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h2>IP Tracker Tool</h2>
+
+  <input type="text" id="ipInput" placeholder="Enter IP address or leave empty for your IP" />
+  <button onclick="trackIP()">Track IP</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function trackIP() {
+      const ip = document.getElementById("ipInput").value.trim();
+      const url = ip ? https://ipapi.co/${ip}/json/ : 'https://ipapi.co/json/';
+
+      document.getElementById('result').innerText = "Loading...";
+
+      try {
+        const response = await fetch(url);
+        if(!response.ok) throw new Error("Network response was not ok");
+
+        const data = await response.json();
+
+        if(data.error) {
+          document.getElementById('result').innerText = Error: ${data.reason};
+          return;
+        }
+
+        document.getElementById('result').innerHTML = `
+          <strong>IP:</strong> ${data.ip} <br/>
+          <strong>City:</strong> ${data.city} <br/>
+          <strong>Region:</strong> ${data.region} <br/>
+          <strong>Country:</strong> ${data.country_name} <br/>
+          <strong>Postal:</strong> ${data.postal} <br/>
+          <strong>Latitude:</strong> ${data.latitude} <br/>
+          <strong>Longitude:</strong> ${data.longitude} <br/>
+          <strong>Timezone:</strong> ${data.timezone} <br/>
+          <strong>ASN:</strong> ${data.asn} <br/>
+          <strong>Org:</strong> ${data.org} <br/>
+        `;
+      } catch (error) {
+        document.getElementById('result').innerText = Error: ${error.message};
+      }
+    }
+  </script>
+</body>
+</html>

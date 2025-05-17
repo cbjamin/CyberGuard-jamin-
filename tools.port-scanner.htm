@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Port Scanner | CyberGuard Jamin</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      padding: 20px;
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 300px;
+    }
+    #result {
+      margin-top: 20px;
+      background: #111;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #0f0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h2>Port Scanner Tool</h2>
+
+  <input type="text" id="hostInput" placeholder="Enter Host or IP (e.g. example.com)" />
+  <button onclick="startScan()">Start Scan (Common Ports)</button>
+
+  <div id="result"></div>
+
+  <script>
+    const commonPorts = [21, 22, 23, 25, 53, 80, 110, 143, 443, 3306, 8080];
+
+    function startScan() {
+      const host = document.getElementById('hostInput').value.trim();
+      if (!host) {
+        alert('Please enter a host or IP address.');
+        return;
+      }
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Scanning ports, please wait...\n';
+
+      // Note: Due to browser security, real port scanning is not possible.
+      // Here we simulate by trying to fetch a resource from the port using fetch (which likely fails).
+      // This is just a demo & not a real port scanner.
+
+      commonPorts.forEach(port => {
+        const url = http://${host}:${port}/;
+
+        fetch(url, { mode: 'no-cors' })
+          .then(() => {
+            resultDiv.textContent += Port ${port}: Open (response received)\n;
+          })
+          .catch(() => {
+            resultDiv.textContent += Port ${port}: Closed or filtered\n;
+          });
+      });
+    }
+  </script>
+</body>
+</html>

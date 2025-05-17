@@ -1,0 +1,27 @@
+CyberGuard-Jamin/
+│
+├── index.html              → Home page
+├── admin.html              → Admin login panel
+├── user.html               → User login & registration
+├── tools.html              → Tools dashboard
+│
+├── style.css               → Main styling (shared)
+├── script.js               → Common scripts
+│
+├── assets/                 → Images, logos, backgrounds
+│   └── hacker-bg.jpg
+│
+├── audio/                  → Voice warnings or sounds
+│   └── warning.mp3
+│
+├── tools/                  → Individual tool modules
+│   ├── ip-tracker.html
+│   ├── dns-lookup.html
+│   └── ...
+│
+├── js/                     → Tool-specific or extra JS files
+│   └── tools/
+│       ├── ip-tracker.js
+│       └── ...
+│
+└── users/                  → (Optional) JSON / LocalStorage emulation files

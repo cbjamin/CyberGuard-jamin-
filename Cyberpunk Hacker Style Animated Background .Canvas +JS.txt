@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CyberGuard Jamin</title>
+  <style>
+    /* Background Canvas Style */
+    #cyberCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background: #000011;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      color: #0ff;
+      background: transparent;
+      overflow-x: hidden;
+    }
+
+    /* Title with Glow and Floating Animation */
+    header {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    h1 {
+      font-size: 4rem;
+      color: #0ff;
+      text-shadow:
+        0 0 5px #0ff,
+        0 0 10px #0ff,
+        0 0 20px #0ff,
+        0 0 40px #0ff;
+      animation: floatGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes floatGlow {
+      0%, 100% { transform: translateY(0); text-shadow:
+        0 0 5px #0ff,
+        0 0 10px #0ff,
+        0 0 20px #0ff,
+        0 0 40px #0ff; }
+      50% { transform: translateY(-10px); text-shadow:
+        0 0 10px #0ff,
+        0 0 20px #0ff,
+        0 0 40px #0ff,
+        0 0 80px #0ff; }
+    }
+
+    /* Navbar Styling */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      background: rgba(0, 15, 15, 0.7);
+      padding: 15px 0;
+      font-size: 1.1rem;
+      font-weight: bold;
+      user-select: none;
+      border-bottom: 1px solid #0ff;
+    }
+
+    nav a {
+      color: #0ff;
+      text-decoration: none;
+      position: relative;
+      padding: 5px 8px;
+    }
+
+    nav a:hover {
+      color: #00ffffcc;
+      text-shadow: 0 0 8px #0ff;
+    }
+
+    /* Tools Menu: visible only if loggedIn = true */
+    .tools-menu {
+      display: none;
+    }
+
+    .tools-menu.show {
+      display: inline;
+    }
+
+    /* Container */
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 15px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    /* Simple button to simulate login/logout */
+    #loginBtn {
+      margin-top: 30px;
+      padding: 10px 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      background-color: #0ff;
+      border: none;
+      color: #000;
+      border-radius: 6px;
+      box-shadow: 0 0 12px #0ff;
+      transition: all 0.3s ease;
+    }
+
+    #loginBtn:hover {
+      background-color: #00cccc;
+      box-shadow: 0 0 20px #00cccc;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="cyberCanvas"></canvas>
+
+<header>
+  <h1>CyberGuard Jamin</h1>
+</header>
+
+<nav>
+  <a href="#">Home</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Blog</a>
+  <a href="#">Contact</a>
+  <a href="#">Admin</a>
+  <a href="#">User</a>
+  <a href="#" class="tools-menu">Tools</a>
+</nav>
+
+<main>
+  <p>Welcome to CyberGuard Jamin - Your ultimate cyber security companion.</p>
+  <p>Login to access advanced tools and features.</p>
+
+  <button id="loginBtn">Login</button>
+</main>
+
+<script>
+  // Matrix Cyberpunk Background Code
+  const canvas = document.getElementById('cyberCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&()&^%'.split('');
+  const fontSize = 20;
+  let columns;
+  let drops;
+
+  function init() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    columns = Math.floor(width / fontSize);
+    drops = Array(columns).fill(1);
+  }
+
+  function draw() {
+    ctx.fillStyle = 'rgba(0, 0, 10, 0.15)';
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.fillStyle = '#0ff';
+    ctx.font = fontSize + 'px monospace';
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters[Math.floor(Math.random() * letters.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+
+    if (Math.random() > 0.95) {
+      const bigText = letters[Math.floor(Math.random() * letters.length)];
+      ctx.font = '60px monospace';

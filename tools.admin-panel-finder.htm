@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel Finder | CyberGuard Jamin</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      padding: 20px;
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 300px;
+    }
+    #result {
+      margin-top: 20px;
+      background: #111;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #0f0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h2>Admin Panel Finder Tool</h2>
+
+  <input type="text" id="urlInput" placeholder="Enter Website URL (e.g. example.com)" />
+  <button onclick="findAdminPanel()">Find Admin Panels</button>
+
+  <div id="result"></div>
+
+  <script>
+    const commonAdminPaths = [
+      '/admin/', '/administrator/', '/admin1/', '/admin2/', '/admin3/',
+      '/admin4/', '/admin5/', '/usuarios/', '/usuario/', '/moderator/',
+      '/webadmin/', '/adminarea/', '/bb-admin/', '/panel-administracion/',
+      '/instadmin/', '/memberadmin/', '/administratorlogin/', '/adm/',
+      '/admin/account.php', '/admin/index.php', '/admin/login.php',
+      '/admin/admin.php', '/admin/account.php'
+    ];
+
+    async function checkUrlExists(url) {
+      try {
+        const response = await fetch(url, { method: 'HEAD' });
+        return response.ok;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    async function findAdminPanel() {
+      const baseUrl = document.getElementById('urlInput').value.trim();
+      if (!baseUrl) {
+        alert('Please enter a website URL.');
+        return;
+      }
+
+      const url = baseUrl.startsWith('http') ? baseUrl : 'http://' + baseUrl;
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Scanning for admin panels... Please wait.';
+
+      let foundPanels = [];
+
+      for (let path of commonAdminPaths) {
+        let fullUrl = url + path;
+        const exists = await checkUrlExists(fullUrl);
+        if (exists) {
+          foundPanels.push(fullUrl);
+        }
+      }
+
+      if (foundPanels.length > 0) {
+        resultDiv.innerHTML = '<strong>Found admin panel(s):</strong><br>' + foundPanels.join('<br>');
+      } else {
+        resultDiv.textContent = 'No admin panels found in common paths.';
+      }
+    }
+  </script>
+</body>
+</html>
